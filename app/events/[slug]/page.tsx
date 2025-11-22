@@ -2,6 +2,8 @@ import React from 'react'
 import {notFound} from "next/navigation";
 import Image from "next/image";
 import BookEvent from "@/components/BookEvent";
+import {getSimilarEventsBySlug} from "@/lib/actions/event.actions";
+import {IEvent} from "@/database";
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
@@ -39,6 +41,8 @@ const { event: { description, image, overview, date, time, location, mode, agend
 if(!description) return notFound();
 
 const bookings = 10;
+
+const similarEvents: IEvent[] = await getSimilarEventsBySlug(slug);
 
     return (
         <section id="event">
@@ -93,6 +97,10 @@ const bookings = 10;
                         <BookEvent />
                     </div>
                 </aside>
+            </div>
+
+            <div className="flex w-full flex-col gap-4 pt-20">
+                <h2>Similar Events</h2>
             </div>
         </section>
     )
