@@ -1,0 +1,34 @@
+# PR Labeler Configuration
+
+# Add labels based on file patterns
+
+'documentation':
+  - '**/*.md'
+  - 'docs/**/*'
+
+'frontend':
+  - 'app/**/*'
+  - 'components/**/*'
+  - '**/*.tsx'
+  - '**/*.css'
+
+'backend':
+  - 'app/api/**/*'
+  - 'lib/actions/**/*'
+  - 'database/**/*'
+
+'database':
+  - 'database/**/*'
+  - '**/*.model.ts'
+
+'config':
+  - '*.config.*'
+  - '*.json'
+  - '.github/**/*'
+
+'dependencies':
+  - 'package.json'
+  - 'package-lock.json'
+
+'ci/cd':
+  - '.github/workflows/**/*'

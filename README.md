@@ -10,6 +10,10 @@ A modern, full-stack event management platform built with Next.js 16, designed s
 ![MongoDB](https://img.shields.io/badge/MongoDB-Database-green?style=for-the-badge&logo=mongodb)
 ![TailwindCSS](https://img.shields.io/badge/Tailwind-CSS-38B2AC?style=for-the-badge&logo=tailwind-css)
 
+![CI Pipeline](https://github.com/Abhay-0103/Dev-Events/workflows/CI%20Pipeline/badge.svg)
+![CD Pipeline](https://github.com/Abhay-0103/Dev-Events/workflows/CD%20Pipeline%20-%20Deploy%20to%20Production/badge.svg)
+![CodeQL](https://github.com/Abhay-0103/Dev-Events/workflows/CodeQL%20Security%20Analysis/badge.svg)
+
 ---
 
 ## 📋 Table of Contents
@@ -23,6 +27,7 @@ A modern, full-stack event management platform built with Next.js 16, designed s
 - [Project Structure](#-project-structure)
 - [API Routes](#-api-routes)
 - [Database Models](#-database-models)
+- [CI/CD Pipeline](#-cicd-pipeline)
 - [Deployment](#-deployment)
 - [Contributing](#-contributing)
 - [License](#-license)
@@ -48,6 +53,7 @@ A modern, full-stack event management platform built with Next.js 16, designed s
 - ☁️ **Image Optimization** - Cloudinary integration for media management
 - 🔐 **Type Safety** - Full TypeScript implementation
 - 🗃️ **NoSQL Database** - MongoDB with Mongoose ODM
+- 🚀 **CI/CD Pipeline** - Automated testing and deployment with GitHub Actions
 
 ---
 
@@ -349,6 +355,102 @@ Create a new event
   createdAt: Date;        // Booking timestamp
 }
 ```
+
+---
+
+## 🚀 CI/CD Pipeline
+
+This project uses **GitHub Actions** for continuous integration and deployment. The pipeline automatically builds, tests, and deploys your application.
+
+### Pipeline Overview
+
+#### 🔄 Continuous Integration (CI)
+Runs on every push and pull request:
+- **Linting**: ESLint code quality checks
+- **Type Checking**: TypeScript validation
+- **Build**: Next.js application compilation
+- **Testing**: Automated test suite execution
+- **Security Scanning**: npm audit for vulnerabilities
+
+#### 🚢 Continuous Deployment (CD)
+Automatically deploys to production:
+- **Production Deploy**: Builds and deploys to Vercel on merge to main
+- **Preview Deployments**: Creates preview URLs for pull requests
+- **Health Checks**: Verifies deployment success
+- **Automated Comments**: Posts deployment URLs on PRs
+
+#### 🔒 Security Features
+- **CodeQL Analysis**: Scans code for security vulnerabilities
+- **Dependency Review**: Checks dependencies in PRs
+- **Auto-merge Dependabot**: Safely updates minor/patch dependencies
+
+### Setup CI/CD
+
+1. **Configure GitHub Secrets** (Repository Settings → Secrets):
+   ```
+   MONGODB_URI
+   NEXT_PUBLIC_BASE_URL
+   CLOUDINARY_CLOUD_NAME
+   CLOUDINARY_API_KEY
+   CLOUDINARY_API_SECRET
+   VERCEL_TOKEN (for deployment)
+   ```
+
+2. **Enable GitHub Actions**: Settings → Actions → Allow all actions
+
+3. **Vercel Setup**:
+   ```bash
+   npm i -g vercel
+   vercel link
+   ```
+
+4. **Branch Protection** (Optional): Settings → Branches
+   - Require status checks before merging
+   - Require CI pipeline to pass
+
+### Workflow Files
+
+All workflows are in `.github/workflows/`:
+- `ci.yml` - Main CI pipeline
+- `cd.yml` - Production deployment
+- `preview.yml` - PR preview deployments
+- `codeql.yml` - Security scanning
+- `dependency-review.yml` - Dependency checks
+- `auto-merge.yml` - Dependabot automation
+- `label.yml` - Auto-label PRs
+
+📚 **Detailed documentation**: [.github/workflows/README.md](.github/workflows/README.md)
+
+---
+
+## 🌐 Deployment
+
+### Deploy on Vercel (Recommended)
+
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com).
+
+1. Push your code to GitHub
+2. Import your repository on Vercel
+3. Add environment variables in Vercel dashboard
+4. Deploy!
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/Abhay-0103/Dev-Events)
+
+### Other Platforms
+
+- **Netlify:** Compatible with Next.js
+- **Railway:** Easy deployment with MongoDB
+- **AWS Amplify:** Scalable hosting option
+- **Docker:** Containerize and deploy anywhere
+
+### Pre-Deployment Checklist
+
+- [ ] Update `NEXT_PUBLIC_BASE_URL` to your production domain
+- [ ] Set up production MongoDB database
+- [ ] Configure Cloudinary for production
+- [ ] Add all environment variables to hosting platform
+- [ ] Test build locally: `npm run build`
+- [ ] Enable analytics (PostHog) if needed
 
 ---
 
