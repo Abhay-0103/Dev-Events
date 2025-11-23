@@ -4,6 +4,7 @@ import Image from "next/image";
 import BookEvent from "@/components/BookEvent";
 import {getSimilarEventsBySlug} from "@/lib/actions/event.actions";
 import {IEvent} from "@/database";
+import EventCard from "@/components/EventCard";
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
@@ -71,14 +72,14 @@ const similarEvents: IEvent[] = await getSimilarEventsBySlug(slug);
                         <EventDetailItem icon="/icons/audience.svg" alt="calendar" label={audience} />
                     </section>
                     
-                    <EventAgenda agendaItems={JSON.parse(agenda[0])} />
+                    <EventAgenda agendaItems={agenda} />
 
                     <section className="flex-col-gap-2">
                         <h2>About The Organizer</h2>
                         <p>{organizer}</p>
                     </section>
 
-                    <EventTags tags={JSON.parse(tags[0])} />
+                    <EventTags tags={tags} />
 
                 </div>
 
@@ -101,6 +102,11 @@ const similarEvents: IEvent[] = await getSimilarEventsBySlug(slug);
 
             <div className="flex w-full flex-col gap-4 pt-20">
                 <h2>Similar Events</h2>
+                <div className="events">
+                    {similarEvents.length > 0 && similarEvents.map((similarEvents: IEvent) => (
+                        <EventCard key={similarEvents.title} { ...similarEvents} />
+                    ))}
+                </div>
             </div>
         </section>
     )
