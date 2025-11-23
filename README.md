@@ -10,8 +10,7 @@ A modern, full-stack event management platform built with Next.js 16, designed s
 ![MongoDB](https://img.shields.io/badge/MongoDB-Database-green?style=for-the-badge&logo=mongodb)
 ![TailwindCSS](https://img.shields.io/badge/Tailwind-CSS-38B2AC?style=for-the-badge&logo=tailwind-css)
 
-![CI Pipeline](https://github.com/Abhay-0103/Dev-Events/workflows/CI%20Pipeline/badge.svg)
-![CD Pipeline](https://github.com/Abhay-0103/Dev-Events/workflows/CD%20Pipeline%20-%20Deploy%20to%20Production/badge.svg)
+
 ![CodeQL](https://github.com/Abhay-0103/Dev-Events/workflows/CodeQL%20Security%20Analysis/badge.svg)
 
 ---
@@ -495,37 +494,6 @@ The `.github/labeler.yml` file automatically labels PRs:
 
 ---
 
-## 🌐 Deployment
-
-### Deploy on Vercel (Recommended)
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com).
-
-1. Push your code to GitHub
-2. Import your repository on Vercel
-3. Add environment variables in Vercel dashboard
-4. Deploy!
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/Abhay-0103/Dev-Events)
-
-### Other Platforms
-
-- **Netlify:** Compatible with Next.js
-- **Railway:** Easy deployment with MongoDB
-- **AWS Amplify:** Scalable hosting option
-- **Docker:** Containerize and deploy anywhere
-
-### Pre-Deployment Checklist
-
-- [ ] Update `NEXT_PUBLIC_BASE_URL` to your production domain
-- [ ] Set up production MongoDB database
-- [ ] Configure Cloudinary for production
-- [ ] Add all environment variables to hosting platform
-- [ ] Test build locally: `npm run build`
-- [ ] Enable analytics (PostHog) if needed
-
----
-
 ## 🤝 Contributing
 
 Contributions are welcome! Please follow these steps:
@@ -613,11 +581,6 @@ If you have any questions or run into issues:
 
 ---
 
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
----
 
 ## 👨‍💻 Author
 
