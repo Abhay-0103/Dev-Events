@@ -34,9 +34,16 @@ const EventTags = ({ tags }: { tags: string[] }) => (
     </div>
 )
 
+{/*
 const EventDetailsPage = async ({ params }: { params: Promise<{ slug: string }>}) => {
 const { slug } = await params;
-const request = await fetch(`${BASE_URL}/api/events/${slug}`);
+*/}
+
+// Fixing this By GPT
+    const EventDetailsPage = async ({ params }: { params: { slug: string }}) => {
+        const { slug } = params;
+
+        const request = await fetch(`${BASE_URL}/api/events/${slug}`);
 const { event: { description, image, overview, date, time, location, mode, agenda, audience, tags, organizer } } = await request.json();
 
 if(!description) return notFound();
