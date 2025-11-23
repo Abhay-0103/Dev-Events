@@ -5,6 +5,7 @@ import BookEvent from "@/components/BookEvent";
 import {getSimilarEventsBySlug} from "@/lib/actions/event.actions";
 import {IEvent} from "@/database";
 import EventCard from "@/components/EventCard";
+import {cacheLife} from "next/cache";
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
@@ -34,19 +35,34 @@ const EventTags = ({ tags }: { tags: string[] }) => (
     </div>
 )
 
-{/*
-const EventDetailsPage = async ({ params }: { params: Promise<{ slug: string }>}) => {
-const { slug } = await params;
-*/}
 
-// Fixing this By GPT
-    const EventDetailsPage = async ({ params }: { params: { slug: string }}) => {
-        const { slug } = params;
+const EventDetailsPage = async ({ params }: { params: Promise<{ slug: string }>}) => {
+    'use cache'
+    cacheLife('hours');
+const { slug } = await params;
 
         const request = await fetch(`${BASE_URL}/api/events/${slug}`);
-const { event: { description, image, overview, date, time, location, mode, agenda, audience, tags, organizer } } = await request.json();
+        const data = await request.json();
 
-if(!description) return notFound();
+        const event = data.event;
+
+    const {
+        description,
+        image,
+        overview,
+        date,
+        time,
+        location,
+        mode,
+        agenda,
+        audience,
+        tags,
+        organizer,
+        _id,
+        slug: eventSlug
+    } = event;
+
+    if (!description) return notFound();
 
 const bookings = 10;
 
@@ -102,7 +118,8 @@ const similarEvents: IEvent[] = await getSimilarEventsBySlug(slug);
                             <p className="text-sm">Be the first to book your spot! </p>
                         )}
 
-                        <BookEvent />
+                        <BookEvent eventId={_id} slug={eventSlug} />
+
                     </div>
                 </aside>
             </div>
