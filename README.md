@@ -28,8 +28,11 @@ A modern, full-stack event management platform built with Next.js 16, designed s
 - [API Routes](#-api-routes)
 - [Database Models](#-database-models)
 - [CI/CD Pipeline](#-cicd-pipeline)
+- [GitHub Templates](#-github-templates)
 - [Deployment](#-deployment)
 - [Contributing](#-contributing)
+- [Documentation](#-documentation)
+- [Support](#-support)
 - [License](#-license)
 
 ---
@@ -73,10 +76,13 @@ A modern, full-stack event management platform built with Next.js 16, designed s
 - **Image Storage:** Cloudinary
 - **Analytics:** PostHog
 
-### Development
+### Development & DevOps
 - **Language:** TypeScript 5
 - **Linting:** ESLint 9
 - **Package Manager:** npm
+- **CI/CD:** GitHub Actions
+- **Deployment:** Vercel
+- **Version Control:** Git & GitHub
 
 ---
 
@@ -215,6 +221,25 @@ npm run lint
 
 ```
 Dev-Events/
+├── .github/                      # GitHub Configuration
+│   ├── workflows/                # GitHub Actions Workflows
+│   │   ├── ci.yml                # Continuous Integration
+│   │   ├── cd.yml                # Continuous Deployment
+│   │   ├── preview.yml           # Preview Deployments
+│   │   ├── codeql.yml            # Security Analysis
+│   │   ├── dependency-review.yml # Dependency Checks
+│   │   ├── auto-merge.yml        # Dependabot Auto-merge
+│   │   ├── label.yml             # PR Auto-labeling
+│   │   ├── README.md             # Workflows Documentation
+│   │   ├── PIPELINE_FLOW.md      # Pipeline Flow Diagram
+│   │   └── QUICK_REFERENCE.md    # Quick Reference Guide
+│   ├── ISSUE_TEMPLATE/           # Issue Templates
+│   │   ├── bug_report.md         # Bug Report Template
+│   │   └── feature_request.md    # Feature Request Template
+│   ├── CONTRIBUTING.md           # Contribution Guidelines
+│   ├── PULL_REQUEST_TEMPLATE.md  # PR Template
+│   └── labeler.yml               # PR Labeling Rules
+│
 ├── app/                          # Next.js App Router
 │   ├── api/                      # API Routes
 │   │   └── events/              
@@ -253,12 +278,15 @@ Dev-Events/
 │   ├── icons/                    # Icon files
 │   └── images/                   # Image files
 │
-├── .next/                        # Next.js build output
+├── .next/                        # Next.js build output (gitignored)
+├── .env.example                  # Environment Variables Template
+├── CI_CD_SETUP.md                # CI/CD Setup Instructions
 ├── components.json               # shadcn/ui config
 ├── eslint.config.mjs             # ESLint configuration
 ├── next.config.ts                # Next.js configuration
 ├── package.json                  # Dependencies
 ├── postcss.config.mjs            # PostCSS configuration
+├── README.md                     # This file
 ├── tailwind.config.ts            # Tailwind configuration
 └── tsconfig.json                 # TypeScript configuration
 ```
@@ -421,6 +449,59 @@ All workflows are in `.github/workflows/`:
 
 📚 **Detailed documentation**: [.github/workflows/README.md](.github/workflows/README.md)
 
+### Visual Pipeline Flow
+
+```mermaid
+graph LR
+    A[Push Code] --> B{Branch?}
+    B -->|Feature| C[CI Pipeline]
+    B -->|Main| D[CI + CD]
+    C --> E[Preview Deploy]
+    D --> F[Production Deploy]
+    E --> G[PR Review]
+    G --> H[Merge]
+    H --> D
+```
+
+**Full Pipeline Diagram**: [.github/PIPELINE_FLOW.md](.github/PIPELINE_FLOW.md)
+
+---
+
+## 📋 GitHub Templates
+
+Professional templates for better collaboration and project management.
+
+### Issue Templates
+- **Bug Report** (`.github/ISSUE_TEMPLATE/bug_report.md`)
+  - Structured bug reporting with environment details
+  - Screenshots and reproduction steps
+  - Related issues linking
+
+- **Feature Request** (`.github/ISSUE_TEMPLATE/feature_request.md`)
+  - Problem statement and proposed solution
+  - Benefits and priority assessment
+  - Implementation suggestions
+
+### Pull Request Template
+- **PR Template** (`.github/PULL_REQUEST_TEMPLATE.md`)
+  - Change type categorization
+  - Testing checklist
+  - Deployment notes
+  - Screenshots/videos for visual changes
+
+### Contribution Guidelines
+- **Contributing Guide** (`.github/CONTRIBUTING.md`)
+  - Code of conduct
+  - Development setup
+  - Coding standards
+  - Commit message guidelines
+  - Pull request process
+
+### Auto-Labeling
+- **PR Labeling** (`.github/labeler.yml`)
+  - Automatically labels PRs based on changed files
+  - Categories: frontend, backend, database, documentation, config, dependencies
+
 ---
 
 ## 🌐 Deployment
@@ -477,14 +558,45 @@ Contributions are welcome! Please follow these steps:
 
 - Follow TypeScript best practices
 - Maintain consistent code style (use ESLint)
-- Write meaningful commit messages
+- Write meaningful commit messages (Conventional Commits format)
 - Update documentation for new features
 - Test thoroughly before submitting PR
+- Use provided issue and PR templates
+
+**Full Guidelines**: [.github/CONTRIBUTING.md](.github/CONTRIBUTING.md)
 
 ---
 
+## 📚 Documentation
 
-## 👨‍💻 Author
+Comprehensive documentation is available to help you get started and contribute effectively:
+
+### Setup & Getting Started
+- **[README.md](README.md)** - This file, overview and quick start
+- **[.env.example](.env.example)** - Environment variables template with detailed comments
+- **[CI_CD_SETUP.md](CI_CD_SETUP.md)** - Complete CI/CD pipeline setup guide
+
+### CI/CD Pipeline
+- **[.github/workflows/README.md](.github/workflows/README.md)** - Detailed workflows documentation
+- **[.github/PIPELINE_FLOW.md](.github/PIPELINE_FLOW.md)** - Visual pipeline flow with diagrams
+- **[.github/QUICK_REFERENCE.md](.github/QUICK_REFERENCE.md)** - Quick reference for common tasks
+
+### Contributing
+- **[.github/CONTRIBUTING.md](.github/CONTRIBUTING.md)** - Contribution guidelines and best practices
+- **[.github/PULL_REQUEST_TEMPLATE.md](.github/PULL_REQUEST_TEMPLATE.md)** - PR template for consistency
+- **[.github/ISSUE_TEMPLATE/](,github/ISSUE_TEMPLATE/)** - Bug report and feature request templates
+
+### Quick Links
+| Document | Purpose |
+|----------|---------|
+| [Setup Guide](CI_CD_SETUP.md) | Step-by-step CI/CD configuration |
+| [Contributing](,github/CONTRIBUTING.md) | How to contribute to the project |
+| [Workflows](,github/workflows/README.md) | CI/CD pipeline documentation |
+| [Quick Reference](.github/QUICK_REFERENCE.md) | Commands and troubleshooting |
+
+---
+
+## 📧 Support
 
 **Abhay Singh**
 - GitHub: [@Abhay-0103](https://github.com/Abhay-0103)
@@ -502,17 +614,75 @@ Contributions are welcome! Please follow these steps:
 
 ## 📧 Support
 
-If you have any questions or run into issues, please:
-- Open an issue on GitHub
-- Check existing issues for solutions
-- Reach out via GitHub discussions
+If you have any questions or run into issues:
+
+### For Bugs & Issues
+- Check [existing issues](https://github.com/Abhay-0103/Dev-Events/issues)
+- Use [Bug Report Template](.github/ISSUE_TEMPLATE/bug_report.md)
+- Include reproduction steps and environment details
+
+### For Feature Requests
+- Review [open feature requests](https://github.com/Abhay-0103/Dev-Events/issues?q=is%3Aissue+label%3Aenhancement)
+- Use [Feature Request Template](.github/ISSUE_TEMPLATE/feature_request.md)
+- Explain the problem it solves
+
+### For Questions & Discussions
+- Open a [GitHub Discussion](https://github.com/Abhay-0103/Dev-Events/discussions)
+- Check the [documentation](#-documentation)
+- Review the [Quick Reference Guide](.github/QUICK_REFERENCE.md)
+
+### CI/CD Support
+- Check [CI/CD Setup Guide](CI_CD_SETUP.md)
+- Review [Workflow Documentation](.github/workflows/README.md)
+- See [Troubleshooting Section](.github/QUICK_REFERENCE.md#-troubleshooting)
+
+---
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+---
+
+## 👨‍💻 Author
+
+**Abhay Singh**
+- GitHub: [@Abhay-0103](https://github.com/Abhay-0103)
+- Project Link: [https://github.com/Abhay-0103/Dev-Events](https://github.com/Abhay-0103/Dev-Events)
+
+---
+
+## 🙏 Acknowledgments
+
+- Next.js team for the amazing framework
+- MongoDB for the flexible database
+- Cloudinary for image management
+- Vercel for seamless deployment
+- GitHub Actions for CI/CD automation
+- All contributors and supporters
+
+---
+
+## 📊 Project Stats
+
+- **Build Time**: ~3-5 minutes
+- **Deploy Time**: ~2-3 minutes
+- **Pipeline Success Rate**: Target 95%+
+- **Automated Checks**: 7 workflows
+- **Documentation Files**: 12+
 
 ---
 
 <div align="center">
 
-**⭐ Star this repo if you find it helpful!**
+### 🌟 **Star this repo if you find it helpful!** 🌟
 
-Made with ❤️ and ☕
+![GitHub stars](https://img.shields.io/github/stars/Abhay-0103/Dev-Events?style=social)
+![GitHub forks](https://img.shields.io/github/forks/Abhay-0103/Dev-Events?style=social)
+![GitHub watchers](https://img.shields.io/github/watchers/Abhay-0103/Dev-Events?style=social)
+
+Made with ❤️ and ☕ by [Abhay Singh](https://github.com/Abhay-0103)
+
+**[⬆ Back to Top](#-dev-events)**
 
 </div>
