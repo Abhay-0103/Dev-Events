@@ -1,7 +1,5 @@
 # PR Labeler Configuration
 
-# Add labels based on file patterns
-
 'documentation':
   - '**/*.md'
   - 'docs/**/*'
