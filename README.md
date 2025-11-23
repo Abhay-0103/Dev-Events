@@ -393,16 +393,15 @@ This project uses **GitHub Actions** for continuous integration and deployment. 
 ### Pipeline Overview
 
 #### 🔄 Continuous Integration (CI)
-Runs on every push and pull request:
+Runs on pull requests:
 - **Linting**: ESLint code quality checks
 - **Type Checking**: TypeScript validation
 - **Build**: Next.js application compilation
-- **Testing**: Automated test suite execution
 - **Security Scanning**: npm audit for vulnerabilities
 
 #### 🚢 Continuous Deployment (CD)
-Automatically deploys to production:
-- **Production Deploy**: Builds and deploys to Vercel on merge to main
+Manual deployment workflow:
+- **Production Deploy**: Manual trigger to deploy to Vercel
 - **Preview Deployments**: Creates preview URLs for pull requests
 - **Health Checks**: Verifies deployment success
 - **Automated Comments**: Posts deployment URLs on PRs
@@ -447,60 +446,52 @@ All workflows are in `.github/workflows/`:
 - `auto-merge.yml` - Dependabot automation
 - `label.yml` - Auto-label PRs
 
-📚 **Detailed documentation**: [.github/workflows/README.md](.github/workflows/README.md)
+📚 **Setup Documentation**: See [GITHUB_ACTIONS_SETUP.md](GITHUB_ACTIONS_SETUP.md) for activation instructions
 
 ### Visual Pipeline Flow
 
 ```mermaid
 graph LR
-    A[Push Code] --> B{Branch?}
-    B -->|Feature| C[CI Pipeline]
-    B -->|Main| D[CI + CD]
-    C --> E[Preview Deploy]
-    D --> F[Production Deploy]
-    E --> G[PR Review]
-    G --> H[Merge]
-    H --> D
+    A[Create PR] --> B[CI Pipeline]
+    B --> C[Preview Deploy]
+    C --> D[PR Review]
+    D --> E{Approved?}
+    E -->|Yes| F[Merge to Main]
+    E -->|No| A
+    F --> G[Manual Trigger]
+    G --> H[CD Pipeline]
+    H --> I[Production Deploy]
 ```
-
-**Full Pipeline Diagram**: [.github/PIPELINE_FLOW.md](.github/PIPELINE_FLOW.md)
 
 ---
 
-## 📋 GitHub Templates
+## 📋 GitHub Actions & Automation
 
-Professional templates for better collaboration and project management.
+### Automated Workflows
+- ✅ **CI Pipeline** - Runs on PRs: lint, type check, build, security scan
+- 🚀 **CD Pipeline** - Manual deployment to Vercel production
+- 👀 **Preview Deployments** - Automatic PR previews
+- 🔒 **CodeQL Security** - Weekly vulnerability scans
+- 📦 **Dependency Review** - Check for vulnerable packages on PRs
+- 🤖 **Auto-merge** - Safe Dependabot updates
+- 🏷️ **Auto-labeling** - Organize PRs automatically
 
-### Issue Templates
-- **Bug Report** (`.github/ISSUE_TEMPLATE/bug_report.md`)
-  - Structured bug reporting with environment details
-  - Screenshots and reproduction steps
-  - Related issues linking
+### Trigger Events
+- **CI Pipeline**: Triggered automatically on pull requests
+- **CD Pipeline**: Triggered manually via GitHub Actions UI
+- **Preview**: Triggered automatically when PR is opened/updated
+- **CodeQL**: Runs on PRs and weekly schedule
+- **Dependency Review**: Runs on pull requests
 
-- **Feature Request** (`.github/ISSUE_TEMPLATE/feature_request.md`)
-  - Problem statement and proposed solution
-  - Benefits and priority assessment
-  - Implementation suggestions
-
-### Pull Request Template
-- **PR Template** (`.github/PULL_REQUEST_TEMPLATE.md`)
-  - Change type categorization
-  - Testing checklist
-  - Deployment notes
-  - Screenshots/videos for visual changes
-
-### Contribution Guidelines
-- **Contributing Guide** (`.github/CONTRIBUTING.md`)
-  - Code of conduct
-  - Development setup
-  - Coding standards
-  - Commit message guidelines
-  - Pull request process
-
-### Auto-Labeling
-- **PR Labeling** (`.github/labeler.yml`)
-  - Automatically labels PRs based on changed files
-  - Categories: frontend, backend, database, documentation, config, dependencies
+### PR Labeling Configuration
+The `.github/labeler.yml` file automatically labels PRs:
+- `frontend` - App, components, CSS changes
+- `backend` - API routes, server actions
+- `database` - Database models and schemas
+- `documentation` - Markdown and docs
+- `config` - Configuration files
+- `dependencies` - Package updates
+- `ci/cd` - Workflow changes
 
 ---
 
@@ -563,7 +554,7 @@ Contributions are welcome! Please follow these steps:
 - Test thoroughly before submitting PR
 - Use provided issue and PR templates
 
-**Full Guidelines**: [.github/CONTRIBUTING.md](.github/CONTRIBUTING.md)
+**Note**: Follow [Conventional Commits](https://www.conventionalcommits.org/) format for commit messages
 
 ---
 
@@ -574,41 +565,25 @@ Comprehensive documentation is available to help you get started and contribute 
 ### Setup & Getting Started
 - **[README.md](README.md)** - This file, overview and quick start
 - **[.env.example](.env.example)** - Environment variables template with detailed comments
+- **[GITHUB_ACTIONS_SETUP.md](GITHUB_ACTIONS_SETUP.md)** - GitHub Actions activation guide
 - **[CI_CD_SETUP.md](CI_CD_SETUP.md)** - Complete CI/CD pipeline setup guide
 
-### CI/CD Pipeline
-- **[.github/workflows/README.md](.github/workflows/README.md)** - Detailed workflows documentation
-- **[.github/PIPELINE_FLOW.md](.github/PIPELINE_FLOW.md)** - Visual pipeline flow with diagrams
-- **[.github/QUICK_REFERENCE.md](.github/QUICK_REFERENCE.md)** - Quick reference for common tasks
-
-### Contributing
-- **[.github/CONTRIBUTING.md](.github/CONTRIBUTING.md)** - Contribution guidelines and best practices
-- **[.github/PULL_REQUEST_TEMPLATE.md](.github/PULL_REQUEST_TEMPLATE.md)** - PR template for consistency
-- **[.github/ISSUE_TEMPLATE/](,github/ISSUE_TEMPLATE/)** - Bug report and feature request templates
+### Workflows & Automation
+All GitHub Actions workflows are in `.github/workflows/`:
+- **ci.yml** - Continuous Integration pipeline
+- **cd.yml** - Continuous Deployment to production
+- **preview.yml** - PR preview deployments
+- **codeql.yml** - Security code analysis
+- **dependency-review.yml** - Dependency security checks
+- **auto-merge.yml** - Dependabot automation
+- **label.yml** - PR auto-labeling
 
 ### Quick Links
 | Document | Purpose |
 |----------|---------|
-| [Setup Guide](CI_CD_SETUP.md) | Step-by-step CI/CD configuration |
-| [Contributing](,github/CONTRIBUTING.md) | How to contribute to the project |
-| [Workflows](,github/workflows/README.md) | CI/CD pipeline documentation |
-| [Quick Reference](.github/QUICK_REFERENCE.md) | Commands and troubleshooting |
-
----
-
-## 📧 Support
-
-**Abhay Singh**
-- GitHub: [@Abhay-0103](https://github.com/Abhay-0103)
-
----
-
-## 🙏 Acknowledgments
-
-- Next.js team for the amazing framework
-- MongoDB for the flexible database
-- Cloudinary for image management
-- All contributors and supporters
+| [Setup Guide](GITHUB_ACTIONS_SETUP.md) | Step-by-step GitHub Actions configuration |
+| [CI/CD Setup](CI_CD_SETUP.md) | Complete CI/CD pipeline setup guide |
+| [Environment Template](.env.example) | Environment variables template |
 
 ---
 
